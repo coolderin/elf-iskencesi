@@ -1,0 +1,40 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2023 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[11:21:34.348001] Configured Lic search path (21.01-s002): 5280@af45ls01
+
+Version: 21.18-s082_1, built Tue Jul 18 04:08:41 PDT 2023
+Options: 
+Date:    Fri Jul 19 11:21:34 2024
+Host:    ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB) (261088984KB)
+PID:     13423
+OS:      Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+Checking out license: Genus_Synthesis
+License 'Genus_Synthesis' (main version: 21.1, alternate version: 21.1) checkout failed.
+
+[11:21:34.444290] Periodic Lic check successful
+[11:21:34.444296] Feature usage summary:
+[11:21:34.444297] Virtuoso_Digital_Implem
+Checking out license: Virtuoso_Digital_Implem
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (9 seconds elapsed).
+
+WARNING: This version of the tool is 366 days old.
+@genus:root: 1> exit
+
+Lic Summary:
+[11:21:47.209011] Cdslmd servers: af45ls01
+[11:21:47.209026] Feature usage summary:
+[11:21:47.209027] Virtuoso_Digital_Implem
+
+Normal exit.

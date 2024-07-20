@@ -1,0 +1,532 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v23.11-s109_1, built Mon Apr 22 16:01:32 PDT 2024
+Options:	-stylus 
+Date:		Fri Jul 19 12:26:02 2024
+Host:		ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB)
+OS:		Red Hat Enterprise Linux Workstation 7.9 (Maipo)
+
+License:
+		[12:26:02.397161] Configured Lic search path (23.02-s005): 5280@af45ls01
+
+		invs	Innovus Implementation System	23.1	Denied
+		invsb	Innovus Implementation System Basic	23.1	Denied
+		fexl	First Encounter XL	23.1	Denied
+		vdixl	Virtuoso Digital Implementation XL	23.1	Denied
+		vdi	Virtuoso Digital Implementation	23.1	checkout succeeded
+		Maximum number of instances allowed (1 x 50000).
+
+
+Create and set the environment variable TMPDIR to /rscratch/tkfmd/gpdk045_a0/sguner/tmp/innovus_temp_20838_597577f7-9629-4767-9c5c-c35d2393260a_ip-10-3-90-142_sguner_xmmIuX.
+
+The soft stacksize limit is either up to the hard limit or larger than 0.2% of RAM. No change is needed.
+[INFO] Loading PVS 23.11 fill procedures
+
+**INFO:  MMMC transition support version v31-84 
+
+@innovus 1> set_db init_power_nets VDD
+@innovus 2> set_db init_ground_nets VSS
+@innovus 3> #################################
+read_mmmc ../gds/gpio.view
+#################################
+#@ Begin verbose source ../gds/gpio.view (pre)
+@file 1:
+@@file 2: create_library_set -name max_timing\
+   -timing ../lib/slow_vdd1v0_basicCells.lib
+@file 4:
+@@file 5: create_library_set -name min_timing\
+   -timing ../lib/fast_vdd1v0_basicCells.lib
+@file 7:
+@@file 8: create_timing_condition -name default_mapping_tc_2\
+   -library_sets min_timing
+@@file 10: create_timing_condition -name default_mapping_tc_1\
+   -library_sets max_timing
+@file 12:
+@@file 13: create_rc_corner -name rccorners\
+   -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
+   -pre_route_res 1\
+   -post_route_res 1\
+   -pre_route_cap 1\
+   -post_route_cap 1\
+   -post_route_cross_cap 1\
+   -pre_route_clock_res 0\
+   -pre_route_clock_cap 0\
+   -qrc_tech ../QRC_Tech/gpdk045.tch
+@file 23:
+@@file 24: create_delay_corner -name max_delay\
+   -timing_condition {default_mapping_tc_1}\
+   -rc_corner rccorners
+@@file 27: create_delay_corner -name min_delay\
+   -timing_condition {default_mapping_tc_2}\
+   -rc_corner rccorners
+@file 30:
+@@file 31: create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc 
+**ERROR: (TCLCMD-989):	cannot open SDC file 'uart_sdc.sdc' for mode 'sdc_cons'
+**ERROR: (IMPSE-110):	File '../gds/gpio.view' line 31: errors out.
+#@ End verbose source ../gds/gpio.view
+
+    while executing
+"create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc "
+    (file "../gds/gpio.view" line 31)
+    invoked from within
+"::se_source_orig ../gds/gpio.view"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel [concat ::se_source_orig $args]"
+    invoked from within
+"if { !$no_encoding && $encodingName != ""  } {
+                  set st [uplevel [concat ::se_source_orig " -encoding " $encodingName " "  $args]]
+   ..."
+    invoked from within
+"if {[::SE::source_verbose_file_state $file_name] == 1} {
+              ::SE::source_verbose_start $file_name
+              if { !$no_encoding && $enco..."
+    invoked from within
+"if {$useTclVerbose} {
+          # use tcl internal method
+          set st ""
+          if {[::SE::source_verbose_file_state $file_name] == 1} {
+     ..."
+    invoked from within
+"if {$largeFile == 1} {
+    if {$enableVerbose == 0 && [::SE::isEchoFile] == 1} {
+      $putCmd "Sourcing $file_name"
+    }
+    set st [uplevel [concat..."
+    (procedure "source" line 186)
+    invoked from within
+"source ../gds/gpio.view"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel #0 {source ../gds/gpio.view}"
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_mmmc ../gds/gpio.view'.For more details, refer to error message from console.
+
+#################################
+read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
+#################################
+
+Loading LEF file ../lef/gsclib045_tech.lef ...
+WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file ../lef/gsclib045_tech.lef at line 1.
+
+Loading LEF file ../lef/gsclib045_macro.lef ...
+WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file ../lef/gsclib045_macro.lef at line 1.
+**ERROR: (IMPLF-81):	No MANUFACTURINGGRID value was given. It is set to
+minimum LEF unit of 0.01 um. If this value is not right, a MANUFACTURINGGRID
+statement must be added in the technology LEF file.
+**WARN: (IMPLF-90):	No DATABASE MICRONS statement has been specified, default 100 is used.
+**ERROR: (IMPLF-26):	No technology information is defined in the first LEF file.
+Please rearrange the LEF file order and make sure the technology LEF file is the
+first one, exit and restart Innovus.
+**ERROR: (IMPSYT-16013):	Loading LEF file(s) failed, and has aborted. Refer to error messages above for details. Please exit the tools and fix the errors first, then re-load design again.
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}'.For more details, refer to error message from console.
+
+#################################
+read_netlist outputs/uart_netlist.v
+#################################
+**ERROR: (IMPIMEX-12):	'init_design' failed. You are missing one or more of the required commands before running init_design.
+The MMMC init sequence looks like this: 
+read_mmmc top.mmmc 
+read_physical -lef {tech.lef stdcell.lef}   #optional in Tempus, required for Innovus 
+read_netlist top.v 
+read_power_intent -1801 top.1801	    #only for MSV designs 
+init_design 
+
+Tempus also supports a single-mode timing init sequence with no MMMC file like this: 
+read_libs all.lib 
+read_netlist top.v 
+read_sdc top.sdc 
+init_design 
+
+See the 'Stylus Common UI Initialization' section in the 'Design Import and Export Capabilities' chapter of the Innovus Stylus 
+Common UI User Guide for more details.
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_netlist outputs/uart_netlist.v'.For more details, refer to error message from console.
+
+**ERROR: (IMPIMEX-12):	'init_design' failed. You are missing one or more of the required commands before running init_design.
+The MMMC init sequence looks like this: 
+read_mmmc top.mmmc 
+read_physical -lef {tech.lef stdcell.lef}   #optional in Tempus, required for Innovus 
+read_netlist top.v 
+read_power_intent -1801 top.1801	    #only for MSV designs 
+init_design 
+
+Tempus also supports a single-mode timing init sequence with no MMMC file like this: 
+read_libs all.lib 
+read_netlist top.v 
+read_sdc top.sdc 
+init_design 
+
+See the 'Stylus Common UI Initialization' section in the 'Design Import and Export Capabilities' chapter of the Innovus Stylus 
+Common UI User Guide for more details.
+#################################
+read_mmmc ../gds/gpio.view
+#################################
+#@ Begin verbose source ../gds/gpio.view (pre)
+@file 1:
+@@file 2: create_library_set -name max_timing\
+   -timing ../lib/slow_vdd1v0_basicCells.lib
+The existing library_set 'max_timing' has been replaced with new attributes.
+@file 4:
+@@file 5: create_library_set -name min_timing\
+   -timing ../lib/fast_vdd1v0_basicCells.lib
+The existing library_set 'min_timing' has been replaced with new attributes.
+@file 7:
+@@file 8: create_timing_condition -name default_mapping_tc_2\
+   -library_sets min_timing
+The existing timing condition 'default_mapping_tc_2' has been replaced with new attributes.
+@@file 10: create_timing_condition -name default_mapping_tc_1\
+   -library_sets max_timing
+The existing timing condition 'default_mapping_tc_1' has been replaced with new attributes.
+@file 12:
+@@file 13: create_rc_corner -name rccorners\
+   -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
+   -pre_route_res 1\
+   -post_route_res 1\
+   -pre_route_cap 1\
+   -post_route_cap 1\
+   -post_route_cross_cap 1\
+   -pre_route_clock_res 0\
+   -pre_route_clock_cap 0\
+   -qrc_tech ../QRC_Tech/gpdk045.tch
+The existing rc_corner 'rccorners' has been replaced with new attributes.
+Extraction setup Started 
+@file 23:
+@@file 24: create_delay_corner -name max_delay\
+   -timing_condition {default_mapping_tc_1}\
+   -rc_corner rccorners
+The existing delay_corner 'max_delay' has been replaced with new attributes.
+@@file 27: create_delay_corner -name min_delay\
+   -timing_condition {default_mapping_tc_2}\
+   -rc_corner rccorners
+The existing delay_corner 'min_delay' has been replaced with new attributes.
+@file 30:
+@@file 31: create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc 
+**ERROR: (TCLCMD-989):	cannot open SDC file 'uart_sdc.sdc' for mode 'sdc_cons'
+**ERROR: (IMPSE-110):	File '../gds/gpio.view' line 31: errors out.
+#@ End verbose source ../gds/gpio.view
+
+    while executing
+"create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc "
+    (file "../gds/gpio.view" line 31)
+    invoked from within
+"::se_source_orig ../gds/gpio.view"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel [concat ::se_source_orig $args]"
+    invoked from within
+"if { !$no_encoding && $encodingName != ""  } {
+                  set st [uplevel [concat ::se_source_orig " -encoding " $encodingName " "  $args]]
+   ..."
+    invoked from within
+"if {[::SE::source_verbose_file_state $file_name] == 1} {
+              ::SE::source_verbose_start $file_name
+              if { !$no_encoding && $enco..."
+    invoked from within
+"if {$useTclVerbose} {
+          # use tcl internal method
+          set st ""
+          if {[::SE::source_verbose_file_state $file_name] == 1} {
+     ..."
+    invoked from within
+"if {$largeFile == 1} {
+    if {$enableVerbose == 0 && [::SE::isEchoFile] == 1} {
+      $putCmd "Sourcing $file_name"
+    }
+    set st [uplevel [concat..."
+    (procedure "source" line 186)
+    invoked from within
+"source ../gds/gpio.view"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel #0 {source ../gds/gpio.view}"
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_mmmc ../gds/gpio.view'.For more details, refer to error message from console.
+
+#################################
+read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
+#################################
+**ERROR: (IMPIMEX-12):	'init_design' failed. You are missing one or more of the required commands before running init_design.
+The MMMC init sequence looks like this: 
+read_mmmc top.mmmc 
+read_physical -lef {tech.lef stdcell.lef}   #optional in Tempus, required for Innovus 
+read_netlist top.v 
+read_power_intent -1801 top.1801	    #only for MSV designs 
+init_design 
+
+Tempus also supports a single-mode timing init sequence with no MMMC file like this: 
+read_libs all.lib 
+read_netlist top.v 
+read_sdc top.sdc 
+init_design 
+
+See the 'Stylus Common UI Initialization' section in the 'Design Import and Export Capabilities' chapter of the Innovus Stylus 
+Common UI User Guide for more details.
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}'.For more details, refer to error message from console.
+
+#################################
+read_netlist outputs/uart_netlist.v
+#################################
+**ERROR: (IMPIMEX-12):	'init_design' failed. You are missing one or more of the required commands before running init_design.
+The MMMC init sequence looks like this: 
+read_mmmc top.mmmc 
+read_physical -lef {tech.lef stdcell.lef}   #optional in Tempus, required for Innovus 
+read_netlist top.v 
+read_power_intent -1801 top.1801	    #only for MSV designs 
+init_design 
+
+Tempus also supports a single-mode timing init sequence with no MMMC file like this: 
+read_libs all.lib 
+read_netlist top.v 
+read_sdc top.sdc 
+init_design 
+
+See the 'Stylus Common UI Initialization' section in the 'Design Import and Export Capabilities' chapter of the Innovus Stylus 
+Common UI User Guide for more details.
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_netlist outputs/uart_netlist.v'.For more details, refer to error message from console.
+
+**ERROR: (IMPIMEX-12):	'init_design' failed. You are missing one or more of the required commands before running init_design.
+The MMMC init sequence looks like this: 
+read_mmmc top.mmmc 
+read_physical -lef {tech.lef stdcell.lef}   #optional in Tempus, required for Innovus 
+read_netlist top.v 
+read_power_intent -1801 top.1801	    #only for MSV designs 
+init_design 
+
+Tempus also supports a single-mode timing init sequence with no MMMC file like this: 
+read_libs all.lib 
+read_netlist top.v 
+read_sdc top.sdc 
+init_design 
+
+See the 'Stylus Common UI Initialization' section in the 'Design Import and Export Capabilities' chapter of the Innovus Stylus 
+Common UI User Guide for more details.
+   -timing ../lib/slow_vdd1v0_basicCells.lib
+invalid command name "-timing"
+invalid command name "-timing"
+@innovus 4> The existing library_set 'max_timing' has been replaced with new attributes.
+The existing library_set 'max_timing' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 5> @file 4:
+@file 4:
+invalid command name "@file"
+invalid command name "@file"
+@innovus 6> @@file 5: create_library_set -name min_timing\
++    -timing ../lib/fast_vdd1v0_basicCells.lib
+@@file 5: create_library_set -name min_timing\
+   -timing ../lib/fast_vdd1v0_basicCells.lib
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 7> The existing library_set 'min_timing' has been replaced with new attributes.
+The existing library_set 'min_timing' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 8> @file 7:
+@file 7:
+invalid command name "@file"
+invalid command name "@file"
+@innovus 9> @@file 8: create_timing_condition -name default_mapping_tc_2\
++    -library_sets min_timing
+@@file 8: create_timing_condition -name default_mapping_tc_2\
+   -library_sets min_timing
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 10> The existing timing condition 'default_mapping_tc_2' has been replaced with new attributes.
+The existing timing condition 'default_mapping_tc_2' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 11> @@file 10: create_timing_condition -name default_mapping_tc_1\
++    -library_sets max_timing
+@@file 10: create_timing_condition -name default_mapping_tc_1\
+   -library_sets max_timing
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 12> The existing timing condition 'default_mapping_tc_1' has been replaced with new attributes.
+The existing timing condition 'default_mapping_tc_1' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 13> @file 12:
+@file 12:
+invalid command name "@file"
+invalid command name "@file"
+@innovus 14> @@file 13: create_rc_corner -name rccorners\
++    -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
++    -pre_route_res 1\
++    -post_route_res 1\
++    -pre_route_cap 1\
++    -post_route_cap 1\
++    -post_route_cross_cap 1\
++    -pre_route_clock_res 0\
++    -pre_route_clock_cap 0\
++    -qrc_tech ../QRC_Tech/gpdk045.tch
+@@file 13: create_rc_corner -name rccorners\
+   -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
+   -pre_route_res 1\
+   -post_route_res 1\
+   -pre_route_cap 1\
+   -post_route_cap 1\
+   -post_route_cross_cap 1\
+   -pre_route_clock_res 0\
+   -pre_route_clock_cap 0\
+   -qrc_tech ../QRC_Tech/gpdk045.tch
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 15> The existing rc_corner 'rccorners' has been replaced with new attributes.
+The existing rc_corner 'rccorners' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 16> Extraction setup Started 
+Extraction setup Started 
+invalid command name "Extraction"
+invalid command name "Extraction"
+@innovus 17> @file 23:
+@file 23:
+invalid command name "@file"
+invalid command name "@file"
+@innovus 18> @@file 24: create_delay_corner -name max_delay\
++    -timing_condition {default_mapping_tc_1}\
++    -rc_corner rccorners
+@@file 24: create_delay_corner -name max_delay\
+   -timing_condition {default_mapping_tc_1}\
+   -rc_corner rccorners
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 19> The existing delay_corner 'max_delay' has been replaced with new attributes.
+The existing delay_corner 'max_delay' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 20> @@file 27: create_delay_corner -name min_delay\
++    -timing_condition {default_mapping_tc_2}\
++    -rc_corner rccorners
+@@file 27: create_delay_corner -name min_delay\
+   -timing_condition {default_mapping_tc_2}\
+   -rc_corner rccorners
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 21> The existing delay_corner 'min_delay' has been replaced with new attributes.
+The existing delay_corner 'min_delay' has been replaced with new attributes.
+invalid command name "The"
+invalid command name "The"
+@innovus 22> @file 30:
+@file 30:
+invalid command name "@file"
+invalid command name "@file"
+@innovus 23> @@file 31: create_constraint_mode -name sdc_cons\
++    -sdc_files\
++     uart_sdc.sdc 
+@@file 31: create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc 
+invalid command name "@@file"
+invalid command name "@@file"
+@innovus 24> **ERROR: (TCLCMD-989):  cannot open SDC file 'uart_sdc.sdc' for mode 'sdc_cons'
+**ERROR: (TCLCMD-989):  cannot open SDC file 'uart_sdc.sdc' for mode 'sdc_cons'
+invalid command name "**ERROR:"
+invalid command name "**ERROR:"
+@innovus 25> **ERROR: (IMPSE-110):   File '../gds/gpio.view' line 31: errors out.
+**ERROR: (IMPSE-110):   File '../gds/gpio.view' line 31: errors out.
+invalid command name "**ERROR:"
+invalid command name "**ERROR:"
+@innovus 26> #@ End verbose source ../gds/gpio.view
+#@ End verbose source ../gds/gpio.view
+@innovus 27> 
+
+@innovus 27>     while executing
+    while executing
+wrong # args: should be "while test command"
+wrong # args: should be "while test command"
+@innovus 28> "create_constraint_mode -name sdc_cons\
++    -sdc_files\
++     uart_sdc.sdc "
+"create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_sdc.sdc "
+invalid command name "create_constraint_mode -name sdc_cons -sdc_files uart_sdc.sdc "
+invalid command name "create_constraint_mode -name sdc_cons -sdc_files uart_sdc.sdc "
+@innovus 29>     (file "../gds/gpio.view" line 31)
+    (file "../gds/gpio.view" line 31)
+invalid command name "(file"
+invalid command name "(file"
+@innovus 30>     invoked from within
+    invoked from within
+invalid command name "invoked"
+invalid command name "invoked"
+@innovus 31> "::se_source_orig ../gds/gpio.view"
+"::se_source_orig ../gds/gpio.view"
+invalid command name "::se_source_orig ../gds/gpio.view"
+invalid command name "::se_source_orig ../gds/gpio.view"
+@innovus 32>     ("uplevel" body line 1)
+    ("uplevel" body line 1)
+invalid command name "("uplevel""
+invalid command name "("uplevel""
+@innovus 33>     invoked from within
+    invoked from within
+invalid command name "invoked"
+invalid command name "invoked"
+@innovus 34> "uplevel [concat ::se_source_orig $args]"
+"uplevel [concat ::se_source_orig $args]"
+can't read "args": no such variable
+can't read "args": no such variable
+@innovus 35>     invoked from within
+    invoked from within
+invalid command name "invoked"
+invalid command name "invoked"
+@innovus 36> "if { !$no_encoding && $encodingName != ""  } {
+"if { !$no_encoding && $encodingName != ""  } {
+extra characters after close-quote
+extra characters after close-quote
+@innovus 37>                   set st [uplevel [concat ::se_source_orig " -encoding " $encodingName " "  $args]]
+                  set st [uplevel [concat ::se_source_orig " -encoding " $encodingName " "  $args]]
+can't read "encodingName": no such variable
+can't read "encodingName": no such variable
+@innovus 38>    ..."
+   ..."
+invalid command name "...""
+invalid command name "...""
+@innovus 39>     invoked from within
+    invoked from within
+invalid command name "invoked"
+invalid command name "invoked"
+@innovus 40> "if {[::SE::source_verbose_file_state $file_name] == 1} {
++               ::SE::source_verbose_start $file_name
++               if { !$no_encoding && $enco..."
+"if {[::SE::source_verbose_file_state $file_name] == 1} {
+              ::SE::source_verbose_start $file_name
+              if { !$no_encoding && $enco..."
+can't read "file_name": no such variable
+can't read "file_name": no such variable
+@innovus 41>     invoked from within
+    invoked from within
+invalid command name "invoked"
+invalid command name "invoked"
+@innovus 42> "if {$useTclVerbose} {
++           # use tcl internal method
++           set st ""
+"if {$useTclVerbose} {
+          # use tcl internal method
+          set st ""
+extra characters after close-quote
+extra characters after close-quote
+@innovus 43>           if {[::SE::source_verbose_file_state $file_name] == 1} {
++      ..."
++     invoked from within
++ "if {$largeFile == 1} {
++     if {$enableVerbose == 0 && [::SE::isEchoFile] == 1} {
++       $putCmd "Sourcing $file_name"
++     }
++     set st [uplevel [concat..."
++     (procedure "source" line 186)
++     invoked from within
++ "source ../gds/gpio.view"
++     ("uplevel" body line 1)
++     invoked from within
++ "uplevel #0 {source ../gds/gpio.view}"
++ **ERROR: **ERROR: (IMPSYT-16031):       Failed to execute command 'read_mmmc ../gds/gpio.view'.For more details, refer to error message from console.

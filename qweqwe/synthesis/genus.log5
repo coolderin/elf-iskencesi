@@ -1,0 +1,61 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2023 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[11:02:05.347977] Configured Lic search path (21.01-s002): 5280@af45ls01
+
+Version: 21.18-s082_1, built Tue Jul 18 04:08:41 PDT 2023
+Options: 
+Date:    Fri Jul 19 11:02:05 2024
+Host:    ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB) (261088984KB)
+PID:     11321
+OS:      Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+Checking out license: Genus_Synthesis
+License 'Genus_Synthesis' (main version: 21.1, alternate version: 21.1) checkout failed.
+
+[11:02:05.427947] Periodic Lic check successful
+[11:02:05.427960] Feature usage summary:
+[11:02:05.427961] Virtuoso_Digital_Implem
+Checking out license: Virtuoso_Digital_Implem
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (9 seconds elapsed).
+
+WARNING: This version of the tool is 366 days old.
+@genus:root: 1> ls
+fv
+genus.cmd
+genus.cmd1
+genus.cmd2
+genus.cmd3
+genus.cmd4
+genus.cmd5
+genus.log
+genus.log1
+genus.log2
+genus.log3
+genus.log4
+genus.log5
+genus_dft_script.tcl
+genus_script.tcl
+outputs
+reports
+@genus:root: 2> genus_script.tcl
+@genus:root: 3> -f genus_script.tcl
+invalid command name "-f"
+@genus:root: 4> exit
+
+Lic Summary:
+[11:21:30.013113] Cdslmd servers: af45ls01
+[11:21:30.013129] Feature usage summary:
+[11:21:30.013130] Virtuoso_Digital_Implem
+
+Normal exit.

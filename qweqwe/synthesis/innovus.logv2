@@ -1,0 +1,217 @@
+[07/19 23:26:52      0s] 
+[07/19 23:26:52      0s] Cadence Innovus(TM) Implementation System.
+[07/19 23:26:52      0s] Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+[07/19 23:26:52      0s] 
+[07/19 23:26:52      0s] Version:	v23.11-s109_1, built Mon Apr 22 16:01:32 PDT 2024
+[07/19 23:26:52      0s] Options:	-stylus 
+[07/19 23:26:52      0s] Date:		Fri Jul 19 23:26:52 2024
+[07/19 23:26:52      0s] Host:		ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB)
+[07/19 23:26:52      0s] OS:		Red Hat Enterprise Linux Workstation 7.9 (Maipo)
+[07/19 23:26:52      0s] 
+[07/19 23:26:52      0s] License:
+[07/19 23:26:52      0s] 		[23:26:52.397217] Configured Lic search path (23.02-s005): 5280@af45ls01
+[07/19 23:26:52      0s] 
+[07/19 23:26:52      0s] 		invs	Innovus Implementation System	23.1	Denied
+[07/19 23:26:52      0s] 		invsb	Innovus Implementation System Basic	23.1	Denied
+[07/19 23:26:52      0s] 		fexl	First Encounter XL	23.1	Denied
+[07/19 23:26:52      0s] 		vdixl	Virtuoso Digital Implementation XL	23.1	Denied
+[07/19 23:26:52      0s] 		vdi	Virtuoso Digital Implementation	23.1	checkout succeeded
+[07/19 23:26:52      0s] 		Maximum number of instances allowed (1 x 50000).
+[07/19 23:26:54      2s] {{{ isCertus 0,  isCertusOrDistOptClient = 0, isInnovusCertusClient = 0}}}
+[07/19 23:27:16     24s] 
+[07/19 23:27:16     24s] 
+[07/19 23:27:20     26s] Reset Parastics called with the command setExtractRCMode -reset@(#)CDS: Innovus v23.11-s109_1 (64bit) 04/22/2024 16:01 (Linux 3.10.0-693.el7.x86_64)
+[07/19 23:27:23     30s] @(#)CDS: NanoRoute 23.11-s109_1 NR240401-0735/23_11-UB (database version 18.20.622) {superthreading v2.20}
+[07/19 23:27:23     30s] @(#)CDS: AAE 23.11-s030 (64bit) 04/22/2024 (Linux 3.10.0-693.el7.x86_64)
+[07/19 23:27:23     30s] @(#)CDS: CTE 23.11-s024_1 () Apr 22 2024 08:03:17 ( )
+[07/19 23:27:23     30s] @(#)CDS: SYNTECH 23.11-s010_1 () Apr  5 2024 04:21:08 ( )
+[07/19 23:27:23     30s] @(#)CDS: CPE v23.11-s057
+[07/19 23:27:23     30s] @(#)CDS: IQuantus/TQuantus 22.1.1-s233 (64bit) Mon Dec 11 23:11:23 PST 2023 (Linux 3.10.0-693.el7.x86_64)
+[07/19 23:27:23     30s] @(#)CDS: OA 22.61-p011 Thu Nov 30 12:26:13 2023
+[07/19 23:27:23     30s] @(#)CDS: SGN 23.10-d005 (03-Oct-2023) (64 bit executable, TkQt5.15.9)
+[07/19 23:27:23     30s] @(#)CDS: RCDB 11.15.0
+[07/19 23:27:23     30s] @(#)CDS: STYLUS 23.10-a010_1 (02/06/2024 03:59 PST)
+[07/19 23:27:23     30s] @(#)CDS: IntegrityPlanner-23.11-14100 (23.11) (2024-02-05 09:01:07+0800)
+[07/19 23:27:23     30s] @(#)CDS: SYNTHESIS_ENGINE 23.11-s099
+[07/19 23:27:23     30s] Create and set the environment variable TMPDIR to /rscratch/tkfmd/gpdk045_a0/sguner/tmp/innovus_temp_1926_4bcc0e9f-cab9-4354-b795-c8bd027f002f_ip-10-3-90-142_sguner_DbzakN.
+
+[07/19 23:27:23     30s] Create and set the environment variable TMPDIR to /rscratch/tkfmd/gpdk045_a0/sguner/tmp/innovus_temp_1926_4bcc0e9f-cab9-4354-b795-c8bd027f002f_ip-10-3-90-142_sguner_DbzakN.
+[07/19 23:27:23     30s] 
+[07/19 23:27:23     30s] The soft stacksize limit is either up to the hard limit or larger than 0.2% of RAM. No change is needed.
+[07/19 23:27:24     30s] [INFO] Loading PVS 23.11 fill procedures
+[07/19 23:27:26     32s] 
+[07/19 23:27:26     32s] **INFO:  MMMC transition support version v31-84 
+[07/19 23:27:26     32s] 
+[07/19 23:27:30     36s] @innovus 1> set_db init_power_nets VDD
+[07/19 23:28:03     39s] @innovus 2> set_db init_ground_nets VSS
+[07/19 23:28:03     39s] @innovus 3> #################################
+[07/19 23:28:03     39s] read_mmmc ../gds/gpio.view
+[07/19 23:28:03     39s] #################################
+[07/19 23:28:03     39s] #@ Begin verbose source ../gds/gpio.view (pre)
+[07/19 23:28:03     39s] @file 1:
+[07/19 23:28:03     39s] @@file 2: create_library_set -name max_timing\
+[07/19 23:28:03     39s]    -timing ../lib/slow_vdd1v0_basicCells.lib
+[07/19 23:28:03     39s] @file 4:
+[07/19 23:28:03     39s] @@file 5: create_library_set -name min_timing\
+[07/19 23:28:03     39s]    -timing ../lib/fast_vdd1v0_basicCells.lib
+[07/19 23:28:03     39s] @file 7:
+[07/19 23:28:03     39s] @@file 8: create_timing_condition -name default_mapping_tc_2\
+[07/19 23:28:03     39s]    -library_sets min_timing
+[07/19 23:28:03     39s] @@file 10: create_timing_condition -name default_mapping_tc_1\
+[07/19 23:28:03     39s]    -library_sets max_timing
+[07/19 23:28:03     39s] @file 12:
+[07/19 23:28:03     39s] @@file 13: create_rc_corner -name rccorners\
+[07/19 23:28:03     39s]    -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
+[07/19 23:28:03     39s]    -pre_route_res 1\
+[07/19 23:28:03     39s]    -post_route_res 1\
+[07/19 23:28:03     39s]    -pre_route_cap 1\
+[07/19 23:28:03     39s]    -post_route_cap 1\
+[07/19 23:28:03     39s]    -post_route_cross_cap 1\
+[07/19 23:28:03     39s]    -pre_route_clock_res 0\
+[07/19 23:28:03     39s]    -pre_route_clock_cap 0\
+[07/19 23:28:03     39s]    -qrc_tech ../QRC_Tech/gpdk045.tch
+[07/19 23:28:03     39s] @file 23:
+[07/19 23:28:03     39s] @@file 24: create_delay_corner -name max_delay\
+[07/19 23:28:03     39s]    -timing_condition {default_mapping_tc_1}\
+[07/19 23:28:03     39s]    -rc_corner rccorners
+[07/19 23:28:03     39s] @@file 27: create_delay_corner -name min_delay\
+[07/19 23:28:03     39s]    -timing_condition {default_mapping_tc_2}\
+[07/19 23:28:03     39s]    -rc_corner rccorners
+[07/19 23:28:03     39s] @file 30:
+[07/19 23:28:03     39s] @@file 31: create_constraint_mode -name sdc_cons\
+[07/19 23:28:03     39s]    -sdc_files\
+[07/19 23:28:03     39s]     pwm.sdc 
+[07/19 23:28:03     39s] **ERROR: (TCLCMD-989):	cannot open SDC file 'pwm.sdc' for mode 'sdc_cons'
+[07/19 23:28:03     39s] **ERROR: (IMPSE-110):	File '../gds/gpio.view' line 31: errors out.
+[07/19 23:28:03     39s] #@ End verbose source ../gds/gpio.view
+[07/19 23:28:03     39s] 
+[07/19 23:28:03     39s]     while executing
+[07/19 23:28:03     39s] "create_constraint_mode -name sdc_cons\
+[07/19 23:28:03     39s]    -sdc_files\
+[07/19 23:28:03     39s]     pwm.sdc "
+[07/19 23:28:03     39s]     (file "../gds/gpio.view" line 31)
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "::se_source_orig ../gds/gpio.view"
+[07/19 23:28:03     39s]     ("uplevel" body line 1)
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "uplevel [concat ::se_source_orig $args]"
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "if { !$no_encoding && $encodingName != ""  } {
+[07/19 23:28:03     39s]                   set st [uplevel [concat ::se_source_orig " -encoding " $encodingName " "  $args]]
+[07/19 23:28:03     39s]    ..."
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "if {[::SE::source_verbose_file_state $file_name] == 1} {
+[07/19 23:28:03     39s]               ::SE::source_verbose_start $file_name
+[07/19 23:28:03     39s]               if { !$no_encoding && $enco..."
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "if {$useTclVerbose} {
+[07/19 23:28:03     39s]           # use tcl internal method
+[07/19 23:28:03     39s]           set st ""
+[07/19 23:28:03     39s]           if {[::SE::source_verbose_file_state $file_name] == 1} {
+[07/19 23:28:03     39s]      ..."
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "if {$largeFile == 1} {
+[07/19 23:28:03     39s]     if {$enableVerbose == 0 && [::SE::isEchoFile] == 1} {
+[07/19 23:28:03     39s]       $putCmd "Sourcing $file_name"
+[07/19 23:28:03     39s]     }
+[07/19 23:28:03     39s]     set st [uplevel [concat..."
+[07/19 23:28:03     39s]     (procedure "source" line 186)
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "source ../gds/gpio.view"
+[07/19 23:28:03     39s]     ("uplevel" body line 1)
+[07/19 23:28:03     39s]     invoked from within
+[07/19 23:28:03     39s] "uplevel #0 {source ../gds/gpio.view}"
+[07/19 23:28:07     39s] **ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_mmmc ../gds/gpio.view'.For more details, refer to error message from console.
+[07/19 23:28:07     39s] 
+[07/19 23:28:07     39s] #################################
+[07/19 23:28:07     39s] read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
+[07/19 23:28:07     39s] #################################
+[07/19 23:28:07     39s] 
+[07/19 23:28:07     39s] Loading LEF file ../lef/gsclib045_tech.lef ...
+[07/19 23:28:07     39s] Set DBUPerIGU to M2 pitch 400.
+[07/19 23:28:07     39s] 
+[07/19 23:28:07     39s] Loading LEF file ../lef/gsclib045_macro.lef ...
+[07/19 23:28:07     40s] **WARN: (IMPLF-200):	Pin 'A' in macro 'ANTENNA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[07/19 23:28:07     40s] Type 'man IMPLF-200' for more detail.
+[07/19 23:28:07     40s] 
+[07/19 23:28:07     40s] ##  Check design process and node:  
+[07/19 23:28:07     40s] ##  Both design process and tech node are not set.
+[07/19 23:28:07     40s] 
+[07/19 23:28:07     40s] #################################
+[07/19 23:28:07     40s] read_netlist outputs/pwm_netlist.v
+[07/19 23:28:07     40s] #################################
+[07/19 23:28:07     40s] #% Begin Load netlist data ... (date=07/19 23:28:07, mem=1706.9M)
+[07/19 23:28:07     40s] *** Begin netlist parsing (mem=1738.2M) ***
+[07/19 23:28:07     40s] Created 0 new cells from 0 timing libraries.
+[07/19 23:28:07     40s] Reading netlist ...
+[07/19 23:28:07     40s] Backslashed names will retain backslash and a trailing blank character.
+[07/19 23:28:07     40s] Reading verilog netlist 'outputs/pwm_netlist.v'
+[07/19 23:28:07     40s] 
+[07/19 23:28:07     40s] *** Memory Usage v#2 (Current mem = 1741.207M, initial mem = 822.395M) ***
+[07/19 23:28:07     40s] *** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=1741.2M) ***
+[07/19 23:28:07     40s] #% End Load netlist data ... (date=07/19 23:28:07, total cpu=0:00:00.0, real=0:00:00.0, peak res=1711.0M, current mem=1711.0M)
+[07/19 23:28:07     40s] Top level cell is PWM.
+[07/19 23:28:07     40s] Hooked 0 DB cells to tlib cells.
+[07/19 23:28:07     40s] Ending "BindLib:" (total cpu=0:00:00.0, real=0:00:00.0, peak res=1716.9M, current mem=1716.9M)
+[07/19 23:28:07     40s] Starting recursive module instantiation check.
+[07/19 23:28:07     40s] No recursion found.
+[07/19 23:28:07     40s] Building hierarchical netlist for Cell PWM ...
+[07/19 23:28:07     40s] ***** UseNewTieNetMode *****.
+[07/19 23:28:07     40s] *** Netlist is unique.
+[07/19 23:28:07     40s] Setting Std. cell height to 3420 DBU (smallest netlist inst).
+[07/19 23:28:07     40s] ** info: there are 575 modules.
+[07/19 23:28:07     40s] ** info: there are 181 stdCell insts.
+[07/19 23:28:07     40s] ** info: there are 181 stdCell insts with at least one signal pin.
+[07/19 23:28:07     40s] 
+[07/19 23:28:07     40s] *** Memory Usage v#2 (Current mem = 1800.680M, initial mem = 822.395M) ***
+[07/19 23:28:07     40s] **WARN: (IMPFP-3961):	The techSite 'CornerSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[07/19 23:28:07     40s] Type 'man IMPFP-3961' for more detail.
+[07/19 23:28:07     40s] **WARN: (IMPFP-3961):	The techSite 'IOSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[07/19 23:28:07     40s] Type 'man IMPFP-3961' for more detail.
+[07/19 23:28:07     40s] Start create_tracks
+[07/19 23:28:07     40s] Extraction setup Started for TopCell PWM 
+[07/19 23:32:04     60s] #import 0 vias (num_signal=0 num_non_signal=0 num_extra_signal=0)
+[07/19 23:32:04     60s] ### import design signature (1): route=1 fixed_route=1 flt_obj=0 vio=1905142130 swire=1 shield_wire=1 net_attr=1 dirty_area=0 del_dirty_area=0 cell=0 placement=0 pin_access=1 inst_pattern=1 inst_orient=1 via=610195162 routing_via=1 timing=1 sns=1 ppa_info=1
+[07/19 23:32:04     60s] #WARNING (NRIF-95) Option set_db route_top_routing_layer has invalid value "0". Reset to max routing layer "11".
+[07/19 23:32:04     60s] #WARNING (NRIF-95) Option set_db route_top_routing_layer has invalid value "0". Reset to max routing layer "11".
+[07/19 23:32:12     61s] Traverse HInst (PWM)
+[07/19 23:33:40     66s] 
+[07/19 23:33:40     66s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) Begin ...
+[07/19 23:33:40     66s] Summary for sequential cells identification: 
+[07/19 23:33:40     66s]   Identified SBFF number: 0
+[07/19 23:33:40     66s]   Identified MBFF number: 0
+[07/19 23:33:40     66s]   Identified SB Latch number: 0
+[07/19 23:33:40     66s]   Identified MB Latch number: 0
+[07/19 23:33:40     66s]   Not identified SBFF number: 0
+[07/19 23:33:40     66s]   Not identified MBFF number: 0
+[07/19 23:33:40     66s]   Not identified SB Latch number: 0
+[07/19 23:33:40     66s]   Not identified MB Latch number: 0
+[07/19 23:33:40     66s]   Number of sequential cells which are not FFs: 0
+[07/19 23:33:40     66s]  Visiting view : default_view_setup
+[07/19 23:33:40     66s]    : PowerDomain = none : Weighted F : unweighted  = -922337203685477632.00 (1.000) with rcCorner = -1
+[07/19 23:33:40     66s]    : PowerDomain = none : no stdDelay from this view
+[07/19 23:33:40     66s]    : PowerDomain = none : Weighted F : unweighted  = -922337203685477632.00 (1.000) with rcCorner = -1
+[07/19 23:33:40     66s]  Visiting view : default_view_hold
+[07/19 23:33:40     66s]    : PowerDomain = none : Weighted F : unweighted  = -922337203685477632.00 (1.000) with rcCorner = -1
+[07/19 23:33:40     66s]    : PowerDomain = none : no stdDelay from this view
+[07/19 23:33:40     66s]    : PowerDomain = none : Weighted F : unweighted  = -922337203685477632.00 (1.000) with rcCorner = -1
+[07/19 23:33:40     66s] *INFO : stdDelay is calculated as zero; using legacy method.
+[07/19 23:33:40     66s] *INFO : stdSlew is calculated as zero; using legacy method.
+[07/19 23:33:40     66s] TLC MultiMap info (StdDelay):
+[07/19 23:33:40     66s]  Setting StdDelay to: 10ps
+[07/19 23:33:40     66s] 
+[07/19 23:33:40     66s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) End ...
+[07/19 23:34:40     71s] 
+[07/19 23:34:40     71s] *** Summary of all messages that are not suppressed in this session:
+[07/19 23:34:40     71s] Severity  ID               Count  Summary                                  
+[07/19 23:34:40     71s] WARNING   IMPLF-200            1  Pin '%s' in macro '%s' has no ANTENNAGAT...
+[07/19 23:34:40     71s] ERROR     IMPSE-110            1  File '%s' line %s: %s.                   
+[07/19 23:34:40     71s] WARNING   IMPFP-325            1  Floorplan of the design is resized. All ...
+[07/19 23:34:40     71s] WARNING   IMPFP-3961           4  The techSite '%s' has no related standar...
+[07/19 23:34:40     71s] ERROR     IMPSYT-7300          4  %s                                       
+[07/19 23:34:40     71s] ERROR     IMPSYT-16031         1  %s                                       
+[07/19 23:34:40     71s] WARNING   IMPOPT-3000          1  Buffer footprint is not defined or is an...
+[07/19 23:34:40     71s] WARNING   IMPOPT-3001          1  Inverter footprint is not defined or is ...
+[07/19 23:34:40     71s] ERROR     IMPCCOPT-2403        1  Cannot run %s as no delay corners are de...
+[07/19 23:34:40     71s] WARNING   NRIF-95              2  Option set_db route_top_routing_layer ha...
+[07/19 23:34:40     71s] ERROR     TCLCMD-989           1  cannot open SDC file '%s' for mode '%s'  

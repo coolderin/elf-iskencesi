@@ -1,0 +1,77 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[13:08:00.295777] Configured Lic search path (23.02-s003): 5280@af45ls01
+
+Version: 23.11-s100_1, built Mon Apr 22 02:28:10 PDT 2024
+Options: -files genus_script.tcl 
+Date:    Fri Jul 19 13:08:00 2024
+Host:    ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB) (261088984KB)
+PID:     25214
+OS:      Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+Checking out license: Genus_Synthesis
+License 'Genus_Synthesis' (version: 23.1) checkout failed.
+Checking out license: Virtuoso_Digital_Implem
+[13:08:00.090619] Periodic Lic check successful
+[13:08:00.614923] Feature usage summary:
+[13:08:00.614923] Virtuoso_Digital_Implem
+
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (0 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (17 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source genus_script.tcl
+#@ Begin verbose source ./genus_script.tcl
+@file(genus_script.tcl) 1: set_db init_lib_search_path ../lib/
+  Setting attribute of root '/': 'init_lib_search_path' = ../lib/
+@file(genus_script.tcl) 2: set_db init_hdl_search_path ../rtl/
+  Setting attribute of root '/': 'init_hdl_search_path' = ../rtl/
+@file(genus_script.tcl) 3: read_libs slow_vdd1v0_basicCells.lib
+
+  Message Summary for Library slow_vdd1v0_basicCells.lib:
+  *******************************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  *******************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_basicCells.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+@file(genus_script.tcl) 5: read_hdl -sv uart_rx.sv
+          	state <= S_RECIEVE;
+          	         |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'S_RECIEVE' in file '../rtl/uart_rx.sv' on line 30, column 21.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+          	state <= S_RECIEVE;
+          	                  |
+Warning : This assignment is a violation of SystemVerilog strong typing rules for enumeration data types. [VLOGPT-702]
+        : in file '../rtl/uart_rx.sv' on line 30, column 30.
+        : Illegal Verilog syntax is encountered.
+#@ End verbose source ./genus_script.tcl
+1
+Encountered problems processing file: genus_script.tcl
+@genus:root: 2> exit
+
+Lic Summary:
+[13:09:12.438219] Cdslmd servers: af45ls01
+[13:09:12.962521] Feature usage summary:
+[13:09:12.962522] Virtuoso_Digital_Implem
+
+Normal exit.

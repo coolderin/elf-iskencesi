@@ -1,0 +1,884 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v23.11-s109_1, built Mon Apr 22 16:01:32 PDT 2024
+Options:	-stylus 
+Date:		Fri Jul 19 13:12:01 2024
+Host:		ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB)
+OS:		Red Hat Enterprise Linux Workstation 7.9 (Maipo)
+
+License:
+		[13:12:01.397121] Configured Lic search path (23.02-s005): 5280@af45ls01
+
+		invs	Innovus Implementation System	23.1	Denied
+		invsb	Innovus Implementation System Basic	23.1	Denied
+		fexl	First Encounter XL	23.1	Denied
+		vdixl	Virtuoso Digital Implementation XL	23.1	Denied
+		vdi	Virtuoso Digital Implementation	23.1	checkout succeeded
+		Maximum number of instances allowed (1 x 50000).
+
+
+Create and set the environment variable TMPDIR to /rscratch/tkfmd/gpdk045_a0/sguner/tmp/innovus_temp_26174_c44633f9-5d75-4216-b86d-bcab07763bc2_ip-10-3-90-142_sguner_iFtnhh.
+
+The soft stacksize limit is either up to the hard limit or larger than 0.2% of RAM. No change is needed.
+[INFO] Loading PVS 23.11 fill procedures
+
+**INFO:  MMMC transition support version v31-84 
+
+@innovus 1> set_db init_power_nets VDD
+@innovus 2> set_db init_ground_nets VSS
+@innovus 3> #################################
+read_mmmc gpio.view
+#################################
+#@ Begin verbose source gpio.view (pre)
+@file 1:
+@@file 2: create_library_set -name max_timing\
+   -timing ../lib/slow_vdd1v0_basicCells.lib
+@file 4:
+@@file 5: create_library_set -name min_timing\
+   -timing ../lib/fast_vdd1v0_basicCells.lib
+@file 7:
+@@file 8: create_timing_condition -name default_mapping_tc_2\
+   -library_sets min_timing
+@@file 10: create_timing_condition -name default_mapping_tc_1\
+   -library_sets max_timing
+@file 12:
+@@file 13: create_rc_corner -name rccorners\
+   -cap_table ../captable/cln28hpl_1p10m+alrdl_5x2yu2yz_typical.capTbl\
+   -pre_route_res 1\
+   -post_route_res 1\
+   -pre_route_cap 1\
+   -post_route_cap 1\
+   -post_route_cross_cap 1\
+   -pre_route_clock_res 0\
+   -pre_route_clock_cap 0\
+   -qrc_tech ../QRC_Tech/gpdk045.tch
+@file 23:
+@@file 24: create_delay_corner -name max_delay\
+   -timing_condition {default_mapping_tc_1}\
+   -rc_corner rccorners
+@@file 27: create_delay_corner -name min_delay\
+   -timing_condition {default_mapping_tc_2}\
+   -rc_corner rccorners
+@file 30:
+@@file 31: create_constraint_mode -name sdc_cons\
+   -sdc_files\
+    uart_rx_sdc.sdc 
+@file 34:
+@@file 35: create_analysis_view -name wc -constraint_mode sdc_cons -delay_corner max_delay
+@@file 36: create_analysis_view -name bc -constraint_mode sdc_cons -delay_corner min_delay
+@file 37:
+@@file 38: set_analysis_view -setup wc -hold bc
+@file 39:
+@file 40:
+#@ End verbose source gpio.view
+Reading max_timing timing library '/proj/dltyilki/tapeout/salihe/lib/slow_vdd1v0_basicCells.lib' ...
+**WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /proj/dltyilki/tapeout/salihe/lib/slow_vdd1v0_basicCells.lib)
+Read 480 cells in library 'slow_vdd1v0' 
+Reading min_timing timing library '/proj/dltyilki/tapeout/salihe/lib/fast_vdd1v0_basicCells.lib' ...
+**WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /proj/dltyilki/tapeout/salihe/lib/fast_vdd1v0_basicCells.lib)
+Read 480 cells in library 'fast_vdd1v0' 
+#################################
+read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}
+#################################
+
+Loading LEF file ../lef/gsclib045_tech.lef ...
+WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file ../lef/gsclib045_tech.lef at line 1.
+
+Loading LEF file ../lef/gsclib045_macro.lef ...
+WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file ../lef/gsclib045_macro.lef at line 1.
+**ERROR: (IMPLF-81):	No MANUFACTURINGGRID value was given. It is set to
+minimum LEF unit of 0.01 um. If this value is not right, a MANUFACTURINGGRID
+statement must be added in the technology LEF file.
+**WARN: (IMPLF-90):	No DATABASE MICRONS statement has been specified, default 100 is used.
+**ERROR: (IMPLF-26):	No technology information is defined in the first LEF file.
+Please rearrange the LEF file order and make sure the technology LEF file is the
+first one, exit and restart Innovus.
+**ERROR: (IMPSYT-16013):	Loading LEF file(s) failed, and has aborted. Refer to error messages above for details. Please exit the tools and fix the errors first, then re-load design again.
+**ERROR: **ERROR: (IMPSYT-16031):	Failed to execute command 'read_physical -lef {../lef/gsclib045_tech.lef ../lef/gsclib045_macro.lef}'.For more details, refer to error message from console.
+
+#################################
+read_netlist ../synthesis/outputs/uart_rx_netlist.v
+#################################
+#% Begin Load netlist data ... (date=07/19 13:13:32, mem=1693.9M)
+*** Begin netlist parsing (mem=1729.5M) ***
+Created 480 new cells from 2 timing libraries.
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+Reading verilog netlist '../synthesis/outputs/uart_rx_netlist.v'
+
+*** Memory Usage v#2 (Current mem = 1731.543M, initial mem = 814.395M) ***
+*** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=1731.5M) ***
+#% End Load netlist data ... (date=07/19 13:13:32, total cpu=0:00:00.0, real=0:00:01.0, peak res=1707.1M, current mem=1707.1M)
+Top level cell is uart_rx.
+Hooked 960 DB cells to tlib cells.
+Starting recursive module instantiation check.
+No recursion found.
+Building hierarchical netlist for Cell uart_rx ...
+***** UseNewTieNetMode *****.
+*** Netlist is unique.
+**WARN: (IMPTRN-1100):	Cannot determine standard cell height.  Assume it 10 IGU.
+**WARN: (IMPTRN-1101):	Could not determine power-rail locations in cells. Use default value GNDOnBtm.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[15]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4249__2398 of the cell OAI31X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[14]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[13]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4251__5107 of the cell OAI211X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4252__6260 of the cell OAI31X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4254__4319 of the cell OAI32X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[12]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4253__8428 of the cell OAI211X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[8]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[9]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[7]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[11]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[10]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[6]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4257__5526 of the cell NOR2X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance g4256__6783 of the cell NAND2X1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[1]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[0]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**ERROR: (IMPREPO-102):	Instance \cntr_reg[2]  of the cell DFFHQX1 has no physical library or has wrong dimen-
+sion values (<=0). Check your design setup to make sure the physical
+ library is loaded in and the attributes specified in physical library are correct.
+Type 'man IMPREPO-102' for more detail.
+**WARN: (EMS-27):	Message (IMPREPO-102) has exceeded the current message display limit of 20.
+To increase the message display limit, refer to the product command reference manual.
+** info: there are 961 modules.
+** info: there are 165 stdCell insts.
+** info: there are 0 stdCell insts with at least one signal pin.
+**ERROR: (IMPREPO-103):	There are 165 instances (32 cells) with no dimension defined.
+
+*** Memory Usage v#2 (Current mem = 1796.016M, initial mem = 814.395M) ***
+**ERROR: (IMPFP-1594):	No site specified. Check the LEF/OA file to make sure a site is specified for core cell.
+Type 'man IMPFP-1594' for more detail.
+**ERROR: (IMPSYC-1595):	No row created.
+Extraction setup Started for TopCell uart_rx 
+Initializing multi-corner RC extraction with 1 active RC Corners ...
+**WARN: (IMPEXT-6202):	In addition to the technology file, the capacitance table file is specified for all the RC corners. If the technology file  is already specified for all the RC corners, the capacitance table file is not required for pre_route and post_route extraction. In a new session, the capacitance table files can be removed from the create_rc_corner command to enable the technology file to be used for pre_route and post_route (effort level medium/high/signoff) extraction engines.
+Type 'man IMPEXT-6202' for more detail.
+**ERROR: (IMPEXT-3466):	The technology layer information is not available. This can happen if either no LEF file is imported or an error occurs while reading the LEF file(s). The capacitance table file cannot be read without the layer information.
+**ERROR: (IMPEXT-2677):	Multi-corner RC initialization is aborted because of previously-reported errors. Use the reason provided in the error message(s) to resolve this issue and use the set_analysis_view command to invoke multi-corner initialization again.
+*Info: initialize multi-corner CTS.
+Reading timing constraints file 'uart_rx_sdc.sdc' ...
+Current (total cpu=0:00:44.0, real=0:01:32, peak res=2122.6M, current mem=2089.6M)
+uart_rx
+INFO (CTE): Constraints read successfully.
+Ending "Constraint file reading stats" (total cpu=0:00:00.0, real=0:00:00.0, peak res=2102.2M, current mem=2102.2M)
+Current (total cpu=0:00:44.0, real=0:01:32, peak res=2122.6M, current mem=2102.2M)
+Total number of combinational cells: 0
+Total number of sequential cells: 0
+Total number of tristate cells: 0
+Total number of level shifter cells: 0
+Total number of power gating cells: 0
+Total number of isolation cells: 0
+Total number of power switch cells: 0
+Total number of pulse generator cells: 0
+Total number of always on buffers: 0
+Total number of retention cells: 0
+Total number of physical cells: 0
+List of usable buffers:
+Total number of usable buffers: 0
+List of unusable buffers:
+Total number of unusable buffers: 0
+List of usable inverters:
+Total number of usable inverters: 0
+List of unusable inverters:
+Total number of unusable inverters: 0
+List of identified usable delay cells:
+Total number of identified usable delay cells: 0
+List of identified unusable delay cells:
+Total number of identified unusable delay cells: 0
+No delay cells were detected in the set of buffers. Buffers will be used to fix hold violations.
+**WARN: (IMPOPT-3000):	Buffer footprint is not defined or is an invalid buffer footprint.
+Type 'man IMPOPT-3000' for more detail.
+**WARN: (IMPOPT-3001):	Inverter footprint is not defined or is an invalid inverter footprint.
+Type 'man IMPOPT-3001' for more detail.
+Extraction setup Started for TopCell uart_rx 
+Initializing multi-corner RC extraction with 1 active RC Corners ...
+**WARN: (IMPEXT-6202):	In addition to the technology file, the capacitance table file is specified for all the RC corners. If the technology file  is already specified for all the RC corners, the capacitance table file is not required for pre_route and post_route extraction. In a new session, the capacitance table files can be removed from the create_rc_corner command to enable the technology file to be used for pre_route and post_route (effort level medium/high/signoff) extraction engines.
+Type 'man IMPEXT-6202' for more detail.
+**ERROR: (IMPEXT-3466):	The technology layer information is not available. This can happen if either no LEF file is imported or an error occurs while reading the LEF file(s). The capacitance table file cannot be read without the layer information.
+**ERROR: (IMPEXT-2677):	Multi-corner RC initialization is aborted because of previously-reported errors. Use the reason provided in the error message(s) to resolve this issue and use the set_analysis_view command to invoke multi-corner initialization again.
+**ERROR: (IMPFP-1594):	No site specified. Check the LEF/OA file to make sure a site is specified for core cell.
+Type 'man IMPFP-1594' for more detail.
+**ERROR: (IMPSYC-1595):	No row created.
+@innovus 3> **ERROR: (IMPSYT-7300):	No object selected. Please select at least one object.
+**WARN: (IMPAFP-9024):	This command is hidden and will be obsolete in the next major release. For module placement, use proto_design instead. For macro placement, use place_design -concurrent_macros to place both standard cells and macros together.
+**WARN: (IMPTCM-77):	Option "-effort" for command getPlanDesignMode is obsolete and will be removed in a future release. The obsolete option still works in this release but to avoid this warning and to ensure compatibility with future releases, remove the obsolete option from your script.
+**WARN: (EMS-27):	Message (IMPTCM-77) has exceeded the current message display limit of 1.
+To increase the message display limit, refer to the product command reference manual.
+**WARN: (IMPDBTCL-321):	The attribute 'plan_design_effort' still works but will be obsolete in a future major release. You should remove it from your script before the next major release to avoid errors.
+**WARN: (IMPAFP-9024):	This command is hidden and will be obsolete in the next major release. For module placement, use proto_design instead. For macro placement, use place_design -concurrent_macros to place both standard cells and macros together.
+**WARN: (IMPTCM-77):	Option "-effort" for command setPlanDesignMode is obsolete and will be removed in a future release. The obsolete option still works in this release but to avoid this warning and to ensure compatibility with future releases, remove the obsolete option from your script.
+**WARN: (IMPDBTCL-321):	The attribute 'plan_design_effort' still works but will be obsolete in a future major release. You should remove it from your script before the next major release to avoid errors.
+**WARN: (IMPAFP-9024):	This command is hidden and will be obsolete in the next major release. For module placement, use proto_design instead. For macro placement, use place_design -concurrent_macros to place both standard cells and macros together.
+Innovus terminated by internal (SEGV) error/signal.
+*** Stack trace:
+Crashing Thread ID: 0
+------------------------------------------------------------
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x21e8159a]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(syStackTrace+0x9c)[0x21e81a16]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0xdac58fb]
+/lib64/libpthread.so.0(+0xf62f)[0x2b260889f62f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_ZN12hpwEncDesign17outputBlockHeaderEP7dbsCellRSt14basic_ofstreamIcSt11char_traitsIcEE+0xf3)[0x15747033]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x1575688f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z13hpwgGenMpDatav+0x67)[0x15756ae7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(refineBlock+0x134)[0x14f9adc4]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclInvokeStringCommand+0x7a)[0x3445a2da]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclNRRunCallbacks+0x71)[0x3445edd1]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460ffe]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_CDNSEvalEx+0x12)[0x34461b52]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z29seTranslateAndRecodeCommandExP10Tcl_InterpPcS1_b+0x2a4)[0x1d759de4]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclNRRunCallbacks+0x71)[0x3445edd1]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460ffe]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x3452ac19]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460e7c]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_CDNSEvalEx+0x12)[0x34461b52]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_Eval+0x15)[0x34461b85]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z10qtfTclEvalPcbb+0xf2)[0x2009fbd2]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_ZN8qtfsItem10fUpdateVarEv+0x229)[0x2003f349]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(+0x30ab44)[0x2b25f900eb44]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN15QAbstractButton7clickedEb+0x31)[0x2b25f9578731]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x27d919)[0x2b25f9578919]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x27ecae)[0x2b25f9579cae]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN15QAbstractButton17mouseReleaseEventEP11QMouseEvent+0xbf)[0x2b25f9579e4f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0x255)[0x2b25f94c7aa5]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN11QPushButton5eventEP6QEvent+0x3e)[0x2b25f96152ae]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7e)[0x2b25f9487bee]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x367)[0x2b25f94905a7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x119)[0x2b25f8fda1f9]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate14sendMouseEventEP7QWidgetP11QMouseEventS1_S1_PS1_R8QPointerIS0_Ebb+0x19d)[0x2b25f948f95d]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x1e6ba6)[0x2b25f94e1ba6]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x1e9d6b)[0x2b25f94e4d6b]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7e)[0x2b25f9487bee]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x187)[0x2b25f94903c7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x119)[0x2b25f8fda1f9]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QGuiApplicationPrivate17processMouseEventEPN29QWindowSystemInterfacePrivate10MouseEventE+0x63f)[0x2b25f8759edf]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QGuiApplicationPrivate24processWindowSystemEventEPN29QWindowSystemInterfacePrivate17WindowSystemEventE+0x228)[0x2b25f875b4e8]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QWindowSystemInterface22sendWindowSystemEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xab)[0x2b25f8734e1b]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN17TqEventDispatcher11processBaseE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0x22)[0x2b25f7af1472]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN17TqEventDispatcher13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xa2)[0x2b25f7af1522]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN10QEventLoop4execE6QFlagsINS_17ProcessEventsFlagEE+0x11a)[0x2b25f8fd8f5a]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication4execEv+0x7b)[0x2b25f8fe09ab]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN13TqApplication4execEv+0x169)[0x2b25f7af0e49]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z12edi_app_initP10Tcl_Interp+0x2eb)[0xdba51db]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_MainEx+0x17b)[0x3451edfb]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(main+0x800)[0x7320270]
+/lib64/libc.so.6(__libc_start_main+0xf4)[0x2b2609265554]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0xdac2272]
+========================================
+               pstack
+========================================
+Thread 28 (Thread 0x2b2632904700 (LWP 26199)):
+#0  0x00002b260889e9dd in accept () from /lib64/libpthread.so.0
+#1  0x0000000032bc1367 in ProcessInfo::handleConnection(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 27 (Thread 0x2b2632b05700 (LWP 26200)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000032bb8fcb in ProcessInfo::sampleUsage(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 26 (Thread 0x2b2632f06700 (LWP 26203)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000021ea97c5 in syiMonitorStdOE(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 25 (Thread 0x2b2633107700 (LWP 26204)):
+#0  0x00002b260930885d in nanosleep () from /lib64/libc.so.6
+#1  0x00002b26093086f4 in sleep () from /lib64/libc.so.6
+#2  0x0000000021ea9a3c in syiMonitorStdOEHeartBeat(void*) ()
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 24 (Thread 0x2b2633609700 (LWP 26210)):
+#0  0x00002b260889ee9d in nanosleep () from /lib64/libpthread.so.0
+#1  0x000000000fd8cb6d in rdaiLicRecheck(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 23 (Thread 0x2b2633b0c700 (LWP 26212)):
+#0  0x00002b260930885d in nanosleep () from /lib64/libc.so.6
+#1  0x00002b26093086f4 in sleep () from /lib64/libc.so.6
+#2  0x0000000021e9e0e1 in syiPeakMem(void*) ()
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 22 (Thread 0x2b2633d0d700 (LWP 26213)):
+#0  0x00002b2609336c3d in poll () from /lib64/libc.so.6
+#1  0x00002b2607996022 in _xcb_conn_wait () from /lib64/libxcb.so.1
+#2  0x00002b2607997c6f in xcb_wait_for_event () from /lib64/libxcb.so.1
+#3  0x00002b260c8653e0 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/../../Qt/v5/64bit/lib/libcdsQt5XcbQpa.so.5
+#4  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#5  0x0000000021ec3004 in create_head(void*) ()
+#6  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#7  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 21 (Thread 0x2b2634622700 (LWP 26214)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000034563988 in NotifierThreadProc ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 20 (Thread 0x2b2634f54700 (LWP 26215)):
+#0  0x00002b260889f3c1 in sigwait () from /lib64/libpthread.so.0
+#1  0x000000000dac3120 in ctrlCHandle(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 19 (Thread 0x2b263b07f700 (LWP 26216)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 18 (Thread 0x2b263b280700 (LWP 26217)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 17 (Thread 0x2b263b481700 (LWP 26218)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 16 (Thread 0x2b263b682700 (LWP 26219)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 15 (Thread 0x2b263b883700 (LWP 26220)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 14 (Thread 0x2b263ba84700 (LWP 26221)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 13 (Thread 0x2b263bc85700 (LWP 26222)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 12 (Thread 0x2b263be86700 (LWP 26223)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 11 (Thread 0x2b263c087700 (LWP 26224)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 10 (Thread 0x2b263c288700 (LWP 26225)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 9 (Thread 0x2b263c489700 (LWP 26226)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 8 (Thread 0x2b263c68a700 (LWP 26227)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 7 (Thread 0x2b263c88b700 (LWP 26228)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 6 (Thread 0x2b263ca8c700 (LWP 26229)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 5 (Thread 0x2b263cc8d700 (LWP 26230)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 4 (Thread 0x2b263ce8e700 (LWP 26231)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 3 (Thread 0x2b263d190700 (LWP 26233)):
+#0  0x00002b2609336cff in ppoll () from /lib64/libc.so.6
+#1  0x00002b25f902c8a9 in qt_safe_poll(pollfd*, unsigned long, timespec const*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#2  0x00002b25f902dd33 in QEventDispatcherUNIX::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#3  0x00002b25f8fd8f5b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#4  0x00002b25f8dedf1e in QThread::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#5  0x00002b260da9f2c7 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5DBus.so.5
+#6  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#7  0x0000000021ec3004 in create_head(void*) ()
+#8  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#9  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 2 (Thread 0x2b2670134700 (LWP 26271)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b25f8df4b43 in QWaitCondition::wait(QMutex*, QDeadlineTimer) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#2  0x00002b25f96a5e22 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#3  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#4  0x0000000021ec3004 in create_head(void*) ()
+#5  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#6  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 1 (Thread 0x2b2611c24800 (LWP 26174)):
+#0  0x00002b26093084b9 in waitpid () from /lib64/libc.so.6
+#1  0x00002b2609285f62 in do_system () from /lib64/libc.so.6
+#2  0x00002b2609286311 in system () from /lib64/libc.so.6
+#3  0x0000000021e8167d in syStackTraceDump(_IO_FILE*, bool) ()
+#4  0x0000000021e81a17 in syStackTrace ()
+#5  0x000000000dac58fc in rdaiErrorHandler1(int) ()
+#6  <signal handler called>
+#7  0x0000000015747033 in hpwEncDesign::outputBlockHeader(dbsCell*, std::basic_ofstream<char, std::char_traits<char> >&) ()
+#8  0x0000000015756890 in hpwiGenFile(char*) ()
+#9  0x0000000015756ae8 in hpwgGenMpData() ()
+#10 0x0000000014f9adc5 in refineBlock ()
+#11 0x000000003445a2db in TclInvokeStringCommand ()
+#12 0x000000003445edd2 in TclNRRunCallbacks ()
+#13 0x0000000034460fff in TclEvalEx ()
+#14 0x0000000034461b53 in Tcl_CDNSEvalEx ()
+#15 0x000000001d759de5 in seTranslateAndRecodeCommandEx(Tcl_Interp*, char*, char*, bool) ()
+#16 0x000000003445edd2 in TclNRRunCallbacks ()
+#17 0x0000000034460fff in TclEvalEx ()
+#18 0x000000003452ac1a in TclSubstTokens ()
+#19 0x0000000034460e7d in TclEvalEx ()
+#20 0x0000000034461b53 in Tcl_CDNSEvalEx ()
+#21 0x0000000034461b86 in Tcl_Eval ()
+#22 0x000000002009fbd3 in qtfTclEval(char*, bool, bool) ()
+#23 0x000000002003f34a in qtfsItem::fUpdateVar() ()
+#24 0x00002b25f900eb45 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#25 0x00002b25f9578732 in QAbstractButton::clicked(bool) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#26 0x00002b25f957891a in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#27 0x00002b25f9579caf in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#28 0x00002b25f9579e50 in QAbstractButton::mouseReleaseEvent(QMouseEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#29 0x00002b25f94c7aa6 in QWidget::event(QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#30 0x00002b25f96152af in QPushButton::event(QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#31 0x00002b25f9487bef in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#32 0x00002b25f94905a8 in QApplication::notify(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#33 0x00002b25f8fda1fa in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#34 0x00002b25f948f95e in QApplicationPrivate::sendMouseEvent(QWidget*, QMouseEvent*, QWidget*, QWidget*, QWidget**, QPointer<QWidget>&, bool, bool) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#35 0x00002b25f94e1ba7 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#36 0x00002b25f94e4d6c in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#37 0x00002b25f9487bef in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#38 0x00002b25f94903c8 in QApplication::notify(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#39 0x00002b25f8fda1fa in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#40 0x00002b25f8759ee0 in QGuiApplicationPrivate::processMouseEvent(QWindowSystemInterfacePrivate::MouseEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#41 0x00002b25f875b4e9 in QGuiApplicationPrivate::processWindowSystemEvent(QWindowSystemInterfacePrivate::WindowSystemEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#42 0x00002b25f8734e1c in QWindowSystemInterface::sendWindowSystemEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#43 0x00002b25f7af1473 in TqEventDispatcher::processBase(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#44 0x00002b25f7af1523 in TqEventDispatcher::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#45 0x00002b25f8fd8f5b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#46 0x00002b25f8fe09ac in QCoreApplication::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#47 0x00002b25f7af0e4a in TqApplication::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#48 0x000000000dba51dc in edi_app_init(Tcl_Interp*) ()
+#49 0x000000003451edfc in Tcl_MainEx ()
+#50 0x0000000007320271 in main ()
+========================================
+                gdb
+========================================
+Using: gdb
+/rscratch/sh.sdAD9h: Permission denied.
+*** Stack trace:
+*** Stack trace in log file.
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x21e814f5]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(syStackTrace+0xad)[0x21e81a27]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0xdac58fb]
+/lib64/libpthread.so.0(+0xf62f)[0x2b260889f62f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_ZN12hpwEncDesign17outputBlockHeaderEP7dbsCellRSt14basic_ofstreamIcSt11char_traitsIcEE+0xf3)[0x15747033]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x1575688f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z13hpwgGenMpDatav+0x67)[0x15756ae7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(refineBlock+0x134)[0x14f9adc4]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclInvokeStringCommand+0x7a)[0x3445a2da]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclNRRunCallbacks+0x71)[0x3445edd1]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460ffe]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_CDNSEvalEx+0x12)[0x34461b52]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z29seTranslateAndRecodeCommandExP10Tcl_InterpPcS1_b+0x2a4)[0x1d759de4]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(TclNRRunCallbacks+0x71)[0x3445edd1]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460ffe]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x3452ac19]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0x34460e7c]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_CDNSEvalEx+0x12)[0x34461b52]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_Eval+0x15)[0x34461b85]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z10qtfTclEvalPcbb+0xf2)[0x2009fbd2]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_ZN8qtfsItem10fUpdateVarEv+0x229)[0x2003f349]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(+0x30ab44)[0x2b25f900eb44]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN15QAbstractButton7clickedEb+0x31)[0x2b25f9578731]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x27d919)[0x2b25f9578919]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x27ecae)[0x2b25f9579cae]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN15QAbstractButton17mouseReleaseEventEP11QMouseEvent+0xbf)[0x2b25f9579e4f]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0x255)[0x2b25f94c7aa5]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN11QPushButton5eventEP6QEvent+0x3e)[0x2b25f96152ae]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7e)[0x2b25f9487bee]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x367)[0x2b25f94905a7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x119)[0x2b25f8fda1f9]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate14sendMouseEventEP7QWidgetP11QMouseEventS1_S1_PS1_R8QPointerIS0_Ebb+0x19d)[0x2b25f948f95d]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x1e6ba6)[0x2b25f94e1ba6]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(+0x1e9d6b)[0x2b25f94e4d6b]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7e)[0x2b25f9487bee]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x187)[0x2b25f94903c7]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x119)[0x2b25f8fda1f9]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QGuiApplicationPrivate17processMouseEventEPN29QWindowSystemInterfacePrivate10MouseEventE+0x63f)[0x2b25f8759edf]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QGuiApplicationPrivate24processWindowSystemEventEPN29QWindowSystemInterfacePrivate17WindowSystemEventE+0x228)[0x2b25f875b4e8]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5(_ZN22QWindowSystemInterface22sendWindowSystemEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xab)[0x2b25f8734e1b]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN17TqEventDispatcher11processBaseE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0x22)[0x2b25f7af1472]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN17TqEventDispatcher13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xa2)[0x2b25f7af1522]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN10QEventLoop4execE6QFlagsINS_17ProcessEventsFlagEE+0x11a)[0x2b25f8fd8f5a]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5(_ZN16QCoreApplication4execEv+0x7b)[0x2b25f8fe09ab]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so(_ZN13TqApplication4execEv+0x169)[0x2b25f7af0e49]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(_Z12edi_app_initP10Tcl_Interp+0x2eb)[0xdba51db]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(Tcl_MainEx+0x17b)[0x3451edfb]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus(main+0x800)[0x7320270]
+/lib64/libc.so.6(__libc_start_main+0xf4)[0x2b2609265554]
+/apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/innovus[0xdac2272]
+========================================
+               pstack
+========================================
+Thread 28 (Thread 0x2b2632904700 (LWP 26199)):
+#0  0x00002b260889e9dd in accept () from /lib64/libpthread.so.0
+#1  0x0000000032bc1367 in ProcessInfo::handleConnection(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 27 (Thread 0x2b2632b05700 (LWP 26200)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000032bb8fcb in ProcessInfo::sampleUsage(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 26 (Thread 0x2b2632f06700 (LWP 26203)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000021ea97c5 in syiMonitorStdOE(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 25 (Thread 0x2b2633107700 (LWP 26204)):
+#0  0x00002b260930885d in nanosleep () from /lib64/libc.so.6
+#1  0x00002b26093086f4 in sleep () from /lib64/libc.so.6
+#2  0x0000000021ea9a3c in syiMonitorStdOEHeartBeat(void*) ()
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 24 (Thread 0x2b2633609700 (LWP 26210)):
+#0  0x00002b260889ee9d in nanosleep () from /lib64/libpthread.so.0
+#1  0x000000000fd8cb6d in rdaiLicRecheck(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 23 (Thread 0x2b2633b0c700 (LWP 26212)):
+#0  0x00002b260930885d in nanosleep () from /lib64/libc.so.6
+#1  0x00002b26093086f4 in sleep () from /lib64/libc.so.6
+#2  0x0000000021e9e0e1 in syiPeakMem(void*) ()
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 22 (Thread 0x2b2633d0d700 (LWP 26213)):
+#0  0x00002b2609336c3d in poll () from /lib64/libc.so.6
+#1  0x00002b2607996022 in _xcb_conn_wait () from /lib64/libxcb.so.1
+#2  0x00002b2607997c6f in xcb_wait_for_event () from /lib64/libxcb.so.1
+#3  0x00002b260c8653e0 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/../../Qt/v5/64bit/lib/libcdsQt5XcbQpa.so.5
+#4  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#5  0x0000000021ec3004 in create_head(void*) ()
+#6  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#7  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 21 (Thread 0x2b2634622700 (LWP 26214)):
+#0  0x00002b26093389a3 in select () from /lib64/libc.so.6
+#1  0x0000000034563988 in NotifierThreadProc ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 20 (Thread 0x2b2634f54700 (LWP 26215)):
+#0  0x00002b260889f3c1 in sigwait () from /lib64/libpthread.so.0
+#1  0x000000000dac3120 in ctrlCHandle(void*) ()
+#2  0x0000000021ec3004 in create_head(void*) ()
+#3  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#4  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 19 (Thread 0x2b263b07f700 (LWP 26216)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 18 (Thread 0x2b263b280700 (LWP 26217)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 17 (Thread 0x2b263b481700 (LWP 26218)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 16 (Thread 0x2b263b682700 (LWP 26219)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 15 (Thread 0x2b263b883700 (LWP 26220)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 14 (Thread 0x2b263ba84700 (LWP 26221)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 13 (Thread 0x2b263bc85700 (LWP 26222)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 12 (Thread 0x2b263be86700 (LWP 26223)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 11 (Thread 0x2b263c087700 (LWP 26224)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 10 (Thread 0x2b263c288700 (LWP 26225)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 9 (Thread 0x2b263c489700 (LWP 26226)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 8 (Thread 0x2b263c68a700 (LWP 26227)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 7 (Thread 0x2b263c88b700 (LWP 26228)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 6 (Thread 0x2b263ca8c700 (LWP 26229)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 5 (Thread 0x2b263cc8d700 (LWP 26230)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 4 (Thread 0x2b263ce8e700 (LWP 26231)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b263765d0b3 in thread_function () from /usr/lib64/dri/swrast_dri.so
+#2  0x00002b263765cc27 in impl_thrd_routine () from /usr/lib64/dri/swrast_dri.so
+#3  0x0000000021ec3004 in create_head(void*) ()
+#4  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#5  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 3 (Thread 0x2b263d190700 (LWP 26233)):
+#0  0x00002b2609336cff in ppoll () from /lib64/libc.so.6
+#1  0x00002b25f902c8a9 in qt_safe_poll(pollfd*, unsigned long, timespec const*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#2  0x00002b25f902dd33 in QEventDispatcherUNIX::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#3  0x00002b25f8fd8f5b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#4  0x00002b25f8dedf1e in QThread::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#5  0x00002b260da9f2c7 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5DBus.so.5
+#6  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#7  0x0000000021ec3004 in create_head(void*) ()
+#8  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#9  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 2 (Thread 0x2b2670134700 (LWP 26271)):
+#0  0x00002b260889ba35 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x00002b25f8df4b43 in QWaitCondition::wait(QMutex*, QDeadlineTimer) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#2  0x00002b25f96a5e22 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#3  0x00002b25f8deef6f in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#4  0x0000000021ec3004 in create_head(void*) ()
+#5  0x00002b2608897ea5 in start_thread () from /lib64/libpthread.so.0
+#6  0x00002b260934196d in clone () from /lib64/libc.so.6
+Thread 1 (Thread 0x2b2611c24800 (LWP 26174)):
+#0  0x00002b26093084b9 in waitpid () from /lib64/libc.so.6
+#1  0x00002b2609285f62 in do_system () from /lib64/libc.so.6
+#2  0x00002b2609286311 in system () from /lib64/libc.so.6
+#3  0x0000000021e81621 in syStackTraceDump(_IO_FILE*, bool) ()
+#4  0x0000000021e81a28 in syStackTrace ()
+#5  0x000000000dac58fc in rdaiErrorHandler1(int) ()
+#6  <signal handler called>
+#7  0x0000000015747033 in hpwEncDesign::outputBlockHeader(dbsCell*, std::basic_ofstream<char, std::char_traits<char> >&) ()
+#8  0x0000000015756890 in hpwiGenFile(char*) ()
+#9  0x0000000015756ae8 in hpwgGenMpData() ()
+#10 0x0000000014f9adc5 in refineBlock ()
+#11 0x000000003445a2db in TclInvokeStringCommand ()
+#12 0x000000003445edd2 in TclNRRunCallbacks ()
+#13 0x0000000034460fff in TclEvalEx ()
+#14 0x0000000034461b53 in Tcl_CDNSEvalEx ()
+#15 0x000000001d759de5 in seTranslateAndRecodeCommandEx(Tcl_Interp*, char*, char*, bool) ()
+#16 0x000000003445edd2 in TclNRRunCallbacks ()
+#17 0x0000000034460fff in TclEvalEx ()
+#18 0x000000003452ac1a in TclSubstTokens ()
+#19 0x0000000034460e7d in TclEvalEx ()
+#20 0x0000000034461b53 in Tcl_CDNSEvalEx ()
+#21 0x0000000034461b86 in Tcl_Eval ()
+#22 0x000000002009fbd3 in qtfTclEval(char*, bool, bool) ()
+#23 0x000000002003f34a in qtfsItem::fUpdateVar() ()
+#24 0x00002b25f900eb45 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#25 0x00002b25f9578732 in QAbstractButton::clicked(bool) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#26 0x00002b25f957891a in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#27 0x00002b25f9579caf in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#28 0x00002b25f9579e50 in QAbstractButton::mouseReleaseEvent(QMouseEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#29 0x00002b25f94c7aa6 in QWidget::event(QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#30 0x00002b25f96152af in QPushButton::event(QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#31 0x00002b25f9487bef in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#32 0x00002b25f94905a8 in QApplication::notify(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#33 0x00002b25f8fda1fa in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#34 0x00002b25f948f95e in QApplicationPrivate::sendMouseEvent(QWidget*, QMouseEvent*, QWidget*, QWidget*, QWidget**, QPointer<QWidget>&, bool, bool) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#35 0x00002b25f94e1ba7 in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#36 0x00002b25f94e4d6c in ?? () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#37 0x00002b25f9487bef in QApplicationPrivate::notify_helper(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#38 0x00002b25f94903c8 in QApplication::notify(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Widgets.so.5
+#39 0x00002b25f8fda1fa in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#40 0x00002b25f8759ee0 in QGuiApplicationPrivate::processMouseEvent(QWindowSystemInterfacePrivate::MouseEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#41 0x00002b25f875b4e9 in QGuiApplicationPrivate::processWindowSystemEvent(QWindowSystemInterfacePrivate::WindowSystemEvent*) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#42 0x00002b25f8734e1c in QWindowSystemInterface::sendWindowSystemEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Gui.so.5
+#43 0x00002b25f7af1473 in TqEventDispatcher::processBase(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#44 0x00002b25f7af1523 in TqEventDispatcher::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#45 0x00002b25f8fd8f5b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#46 0x00002b25f8fe09ac in QCoreApplication::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/Qt/v5//64bit/lib/libcdsQt5Core.so.5
+#47 0x00002b25f7af0e4a in TqApplication::exec() () from /apps/DDI231/23.11.000/INNOVUS231/tools.lnx86/innovus/bin/64bit/../../../lib/64bit/libtq.so
+#48 0x000000000dba51dc in edi_app_init(Tcl_Interp*) ()
+#49 0x000000003451edfc in Tcl_MainEx ()
+#50 0x0000000007320271 in main ()
+========================================
+                gdb
+========================================
+Using: gdb
+/rscratch/sh.53LYmH: Permission denied.
+
+*** Memory Usage v#2 (Current mem = 2387.168M, initial mem = 814.395M) ***
+*** Message Summary: 17 warning(s), 180 error(s)
+
+--- Ending "Innovus" (totcpu=0:00:59.9, real=0:05:36, mem=2387.2M) ---

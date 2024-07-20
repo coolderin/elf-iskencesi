@@ -1,0 +1,8 @@
+# Cadence Genus(TM) Synthesis Solution, Version 21.18-s082_1, built Jul 18 2023 13:08:41
+
+# Date: Fri Jul 19 11:21:57 2024
+# Host: ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB)
+# OS:   Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+source genus_script.tcl
+exit

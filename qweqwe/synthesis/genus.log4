@@ -1,0 +1,28 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2023 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[11:01:57.348025] Configured Lic search path (21.01-s002): 5280@af45ls01
+
+Version: 21.18-s082_1, built Tue Jul 18 04:08:41 PDT 2023
+Options: genus_script.tcl 
+Date:    Fri Jul 19 11:01:57 2024
+Host:    ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB) (261088984KB)
+PID:     11175
+OS:      Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+Checking out license: Genus_Synthesis
+License 'Genus_Synthesis' (main version: 21.1, alternate version: 21.1) checkout failed.
+
+[11:01:57.394962] Periodic Lic check successful
+[11:01:57.394971] Feature usage summary:
+[11:01:57.394976] Virtuoso_Digital_Implem
+Checking out license: Virtuoso_Digital_Implem
+  Setting attribute of root '/': 'init_lib_search_path' = ../lib/
+  Setting attribute of root '/': 'init_hdl_search_path' = ../rtl/
+invalid command name "read_libs"
+    while executing
+"read_libs slow_vdd1v0_basicCells.lib"
+    (file "genus_script.tcl" line 3)
+Abnormal exit.

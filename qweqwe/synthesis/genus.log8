@@ -1,0 +1,85 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2023 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[11:22:56.348041] Configured Lic search path (21.01-s002): 5280@af45ls01
+
+Version: 21.18-s082_1, built Tue Jul 18 04:08:41 PDT 2023
+Options: -files genus_script.tcl 
+Date:    Fri Jul 19 11:22:56 2024
+Host:    ip-10-3-90-142 (x86_64 w/Linux 3.10.0-1160.2.2.el7.x86_64) (16cores*32cpus*1physical cpu*Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz 36608KB) (261088984KB)
+PID:     14029
+OS:      Red Hat Enterprise Linux Workstation release 7.9 (Maipo)
+
+Checking out license: Genus_Synthesis
+License 'Genus_Synthesis' (main version: 21.1, alternate version: 21.1) checkout failed.
+
+[11:22:56.132472] Periodic Lic check successful
+[11:22:56.132481] Feature usage summary:
+[11:22:56.132482] Virtuoso_Digital_Implem
+Checking out license: Virtuoso_Digital_Implem
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (10 seconds elapsed).
+
+#@ Processing -files option
+@genus 1> source genus_script.tcl
+#@ Begin verbose source ./genus_script.tcl
+@file(genus_script.tcl) 1: set_db init_lib_search_path ../lib/
+  Setting attribute of root '/': 'init_lib_search_path' = ../lib/
+@file(genus_script.tcl) 2: set_db init_hdl_search_path ../rtl/
+  Setting attribute of root '/': 'init_hdl_search_path' = ../rtl/
+@file(genus_script.tcl) 3: read_libs slow_vdd1v0_basicCells.lib
+
+  Message Summary for Library slow_vdd1v0_basicCells.lib:
+  *******************************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  *******************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_basicCells.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+@file(genus_script.tcl) 5: read_hdl -sv UART.sv
+            bitcntr<=0;
+            |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'bitcntr' in file '../rtl/UART.sv' on line 29, column 13.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+          	state <= S_RECIEVE;
+          	         |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'S_RECIEVE' in file '../rtl/UART.sv' on line 81, column 21.
+    .tx_ena(UART_CFG[0]), .tx_done(UART_CFG[2]), .tx_serial(tx));
+                                                               |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 'tx' in file '../rtl/UART.sv' on line 124, column 64.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+    uart_rx rx (.clk(clk), .rst(rst), .UART_CPB(UART_CPB), .rx_serial(rx), .UART_RDR(UART_RDR), .rx_done(UART_CFG[1]));
+                                                                                                                     |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 'rx' in file '../rtl/UART.sv' on line 126, column 118.
+#@ End verbose source ./genus_script.tcl
+1
+Encountered problems processing file: genus_script.tcl
+WARNING: This version of the tool is 366 days old.
+@genus:root: 2> genus_script.tcl
+@genus:root: 3> exit
+
+Lic Summary:
+[11:33:23.028507] Cdslmd servers: af45ls01
+[11:33:23.028515] Feature usage summary:
+[11:33:23.028515] Virtuoso_Digital_Implem
+
+Normal exit.
